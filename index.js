@@ -9,7 +9,7 @@ const users = [
     {
         login: 'testUser',
         name: 'Evan',
-        password: '123456',
+        password: '324e2342',
         token: '123456',
         gameLists: [
             {
@@ -20,23 +20,96 @@ const users = [
     },
 ]
 
-
-app.get('/', (req, res) => {
-    res.json(users)
+app.get('/account', (req, res) => {
+    const user = users.find(user => user.login === req.body.login)
+    if (user) {
+        if (user.password === req.body.password) {
+            res.json({
+                success: true,
+                message: '',
+                token: user.token
+            })
+        } else {
+            res.json({
+                success: false,
+                message: 'password is incorrect',
+            })
+        }
+    } else {
+        res.status(404).json({error: 'no user with login' + req.body.login})
+    }
 })
 
-app.post('/', (req, res) => {
-    console.log(req.body)
-    users.push(req.body)
-    res.json({test: 'this shit works, and after nodemon adding works to'})
+app.post('/account', (req, res) => {
+    const user = users.find(user => user.login === req.body.login)
+    if (!user) {
+        const token = req.body.login + 322123
+        users.push({
+            login: req.body.login,
+            name: req.body.name,
+            password: req.body.password,
+            token: token,
+            gameLists: []
+        })
+        res.json({
+            success: true,
+            message: 'new user was created successfully',
+            token: token
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this login already exists',
+        })
+    }
 })
 
-app.put('/', (req, res) => {
-    res.json({test: 'this shit works, and after nodemon adding works to'})
+app.put('/account', (req, res) => {
+    const userIndex = users.findIndex(user => user.token === req.body.token)
+    if (userIndex !== -1) {
+        users[userIndex].name = req.body.name
+        res.json({
+            success: true,
+            message: 'name was updated successfully'
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'token is incorrect or user does not exist',
+        })
+    }
+})
+
+app.put('/account/pass', (req, res) => {
+    const userIndex = users.findIndex(user => user.token === req.body.token)
+    if (userIndex !== -1) {
+        if (req.body.oldPassword === users[userIndex].password) {
+            users[userIndex].password = req.body.newPassword
+            res.json({
+                success: true,
+                message: 'password updated successfully',
+            })
+        } else {
+            res.json({
+                success: false,
+                message: 'password is incorrect',
+            })
+        }
+
+    } else {
+        res.json({
+            success: false,
+            message: 'token is incorrect or user does not exist'
+        })
+    }
 })
 
 app.delete('/', (req, res) => {
     res.json({test: 'this shit works, and after nodemon adding works to'})
+})
+
+app.get('/', (req, res) => {
+    res.json(users)
 })
 
 app.listen(port, () => {

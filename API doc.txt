@@ -1,0 +1,39 @@
+/account
+	get: log in
+		body: {login: string, password: string}
+		res: {
+			success: boll
+			message: string
+			token?: string
+		}
+	post: registration
+		body: {login: string, password: string, name: string}
+		res: {
+			success: boll
+			message: string
+			token?: string
+		}
+	put: change name
+		body: {token: string, name: string}
+		res: {
+			success: boll
+			message: string
+		}
+
+------------------------------------------------------------------------------------------------------------------------------------
+/account/pass
+	put: 	
+		body: {oldPassword: string, newPassword: string, token: string}
+		res: {
+			success: boll
+			message: string
+		}
+------------------------------------------------------------------------------------------------------------------------------------
+/pass
+	put: 	
+		body: {oldPassword: string, newPassword: string}
+		res: {
+			success: boll
+			message: string
+		}
+------------------------------------------------------------------------------------------------------------------------------------
