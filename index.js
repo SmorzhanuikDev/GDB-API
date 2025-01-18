@@ -13,6 +13,7 @@ const users = [
         token: '123456',
         gameLists: [
             {
+                id: 1,
                 name: 'my games',
                 gamesId: [432, 3234]
             }
@@ -110,6 +111,43 @@ app.delete('/account', (req, res) => {
         res.json({
             success: true,
             message: 'user was deleted successfully',
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
+app.get('/user', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        res.json({
+            success: true,
+            message: 'success',
+            user: users[userIndex]
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
+app.post('/gamelist', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        users[userIndex].gameLists.push({
+            name: req.body.listName,
+            id: users[userIndex].gameLists.length + 1,
+            gamesId: req.body.gameId ? [].concat(req.body.gameId) : []
+        })
+        res.json({
+            success: true,
+            message: 'success',
+            user: users[userIndex]
         })
     } else {
         res.json({

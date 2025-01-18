@@ -1,3 +1,19 @@
+user = {
+        login: string,
+        name: string,
+        password: string,
+        token: string,
+        gameLists: [
+            {
+                id: number,
+                name: string,
+                gamesId: number[]
+            }
+        ]
+    }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 /account
 	get: log in
 		body: {login: string, password: string}
@@ -19,6 +35,12 @@
 			success: boll
 			message: string
 		}
+    delete: delete user
+		body: {token: string}
+		res: {
+			success: boll
+			message: string
+		}
 
 ------------------------------------------------------------------------------------------------------------------------------------
 /account/pass
@@ -29,11 +51,21 @@
 			message: string
 		}
 ------------------------------------------------------------------------------------------------------------------------------------
-/pass
-	put: 	
-		body: {oldPassword: string, newPassword: string}
+/user
+	get:
+		body: {token: string}
 		res: {
 			success: boll
 			message: string
+			user: user
+		}
+------------------------------------------------------------------------------------------------------------------------------------
+/gamelist
+	post:
+		body: {token: string, listName: string, gameId?: number}
+		res: {
+			success: boll
+			message: string
+			user: user
 		}
 ------------------------------------------------------------------------------------------------------------------------------------
