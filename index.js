@@ -95,7 +95,6 @@ app.put('/account/pass', (req, res) => {
                 message: 'password is incorrect',
             })
         }
-
     } else {
         res.json({
             success: false,
@@ -104,8 +103,20 @@ app.put('/account/pass', (req, res) => {
     }
 })
 
-app.delete('/', (req, res) => {
-    res.json({test: 'this shit works, and after nodemon adding works to'})
+app.delete('/account', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        users.splice(userIndex, 1)
+        res.json({
+            success: true,
+            message: 'user was deleted successfully',
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
 })
 
 app.get('/', (req, res) => {
