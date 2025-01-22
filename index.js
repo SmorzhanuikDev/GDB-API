@@ -157,6 +157,56 @@ app.post('/gamelist', (req, res) => {
     }
 })
 
+app.delete('/gamelist', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
+        if (listIndex !== -1) {
+            users[userIndex].gameLists.splice(listIndex, 1)
+            res.json({
+                success: true,
+                message: 'list was deleted successfully',
+                user: users[userIndex]
+            })
+        } else {
+            res.json({
+                success: false,
+                message: 'Not found list with this id',
+            })
+        }
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
+app.delete('/gamelist', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
+        if (listIndex !== -1) {
+            users[userIndex].gameLists.splice(listIndex, 1)
+            res.json({
+                success: true,
+                message: 'list was deleted successfully',
+                user: users[userIndex]
+            })
+        } else {
+            res.json({
+                success: false,
+                message: 'Not found list with this id',
+            })
+        }
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
 app.get('/', (req, res) => {
     res.json(users)
 })

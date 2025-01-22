@@ -61,8 +61,15 @@ user = {
 		}
 ------------------------------------------------------------------------------------------------------------------------------------
 /gamelist
-	post:
+	post: create new gameList and additional add first game
 		body: {token: string, listName: string, gameId?: number}
+		res: {
+			success: boll
+			message: string
+			user: user
+		}
+    delete: delete game list
+		body: {token: string, listId: string}
 		res: {
 			success: boll
 			message: string
