@@ -101,3 +101,10 @@ user = {
             message: string
             gameRating?: number
         }
+
+    put: rate game
+        body: {token: string, gameId: number, rating: number(1-4)}
+        res: {
+            success: boll
+            message: string
+        }

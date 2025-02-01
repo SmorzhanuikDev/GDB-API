@@ -277,7 +277,7 @@ app.put('/gameRating', (req, res) => {
         users[userIndex].ratedGame.set(req.body.gameId, req.body.rating)
         res.json({
             success: true,
-            message: 'game was rated successfully'
+            message: 'game was rated successfully',
         })
     } else {
         res.json({
