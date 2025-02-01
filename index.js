@@ -182,17 +182,25 @@ app.delete('/gamelist', (req, res) => {
     }
 })
 
-app.delete('/gamelist', (req, res) => {
+app.put('/gamelist', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
         if (listIndex !== -1) {
-            users[userIndex].gameLists.splice(listIndex, 1)
-            res.json({
-                success: true,
-                message: 'list was deleted successfully',
-                user: users[userIndex]
-            })
+            const gameId = users[userIndex].gameLists[listIndex].gamesId.findIndex(gameId => req.body.gameId === gameId)
+            if (gameId !== -1) {
+                res.json({
+                    success: false,
+                    message: 'Game with this is already added',
+                })
+            } else {
+                users[userIndex].gameLists[listIndex].gamesId.push(req.body.gameId)
+                res.json({
+                    success: true,
+                    message: 'list was updated successfully',
+                    user: users[userIndex]
+                })
+            }
         } else {
             res.json({
                 success: false,

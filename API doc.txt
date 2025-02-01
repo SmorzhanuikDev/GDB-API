@@ -66,13 +66,20 @@ user = {
 		res: {
 			success: boll
 			message: string
-			user: user
+			user?: user
 		}
     delete: delete game list
 		body: {token: string, listId: string}
 		res: {
 			success: boll
 			message: string
-			user: user
+			user?: user
 		}
+    put: adding new game to gameList. Error if game already added.
+    body: {token: string, listId: string, gameId: number}
+    		res: {
+    			success: boll
+    			message: string
+    			user?: user
+    		}
 ------------------------------------------------------------------------------------------------------------------------------------
