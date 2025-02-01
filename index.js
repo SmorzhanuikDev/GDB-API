@@ -287,15 +287,29 @@ app.put('/gameRating', (req, res) => {
     }
 })
 
+app.delete('/gameRating', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        users[userIndex].ratedGame.delete(req.body.gameId)
+        res.json({
+            success: true,
+            message: 'rating was deleted successfully',
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
 app.get('/gameRatingList', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
-
         const ratedGames = []
         for (let entry of  users[userIndex].ratedGame) {
             ratedGames.push(entry)
         }
-
         res.json({
             success: true,
             message: 'success',

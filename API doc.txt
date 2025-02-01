@@ -108,6 +108,12 @@ user = {
             success: boll
             message: string
         }
+    delete: delete game rating
+        body: {token: string, gameId: number}
+        res: {
+            success: boll
+            message: string
+        }
 ------------------------------------------------------------------------------------------------------------------------------------
 /gameRatingList
     get: get list of rated games
