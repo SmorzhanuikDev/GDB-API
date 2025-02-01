@@ -108,3 +108,12 @@ user = {
             success: boll
             message: string
         }
+------------------------------------------------------------------------------------------------------------------------------------
+/gameRatingList
+    get: get list of rated games
+        body: {token: string}
+        res: {
+            success: boll
+            message: string
+            ratedGameList: [number: number][]
+        }

@@ -19,9 +19,9 @@ const users = [
             }
         ],
         ratedGame: new Map([
-            [12, '1'],
-            [121, '3'],
-            [32, '2']
+            [12, 1],
+            [121, 3],
+            [32, 2]
         ])
     },
 ]
@@ -286,6 +286,29 @@ app.put('/gameRating', (req, res) => {
         })
     }
 })
+
+app.get('/gameRatingList', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+
+        const ratedGames = []
+        for (let entry of  users[userIndex].ratedGame) {
+            ratedGames.push(entry)
+        }
+
+        res.json({
+            success: true,
+            message: 'success',
+            ratedGameList: ratedGames
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
 
 app.get('/', (req, res) => {
     res.json(users)
