@@ -83,3 +83,11 @@ user = {
             user?: user
         }
 ------------------------------------------------------------------------------------------------------------------------------------
+/gameListName
+    put: change name of list
+    body: {token: string, listId: string, name: string}
+    		res: {
+    			success: boll
+    			message: string
+    			user?: user
+    		}
