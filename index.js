@@ -189,9 +189,11 @@ app.put('/gamelist', (req, res) => {
         if (listIndex !== -1) {
             const gameId = users[userIndex].gameLists[listIndex].gamesId.findIndex(gameId => req.body.gameId === gameId)
             if (gameId !== -1) {
+                users[userIndex].gameLists[listIndex].gamesId.splice(gameId, 1)
                 res.json({
-                    success: false,
-                    message: 'Game with this is already added',
+                    success: true,
+                    message: 'Game was deleted successfully',
+                    user: users[userIndex]
                 })
             } else {
                 users[userIndex].gameLists[listIndex].gamesId.push(req.body.gameId)

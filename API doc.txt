@@ -75,11 +75,11 @@ user = {
 			message: string
 			user?: user
 		}
-    put: adding new game to gameList. Error if game already added.
-    body: {token: string, listId: string, gameId: number}
-    		res: {
-    			success: boll
-    			message: string
-    			user?: user
-    		}
+    put: adding new game to gameList.
+        body: {token: string, listId: string, gameId: number}
+        res: {
+            success: boll
+            message: string
+            user?: user
+        }
 ------------------------------------------------------------------------------------------------------------------------------------
