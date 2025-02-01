@@ -10,6 +10,7 @@ user = {
                 gamesId: number[]
             }
         ]
+        ratedGames: Map()
     }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -60,7 +61,7 @@ user = {
 			user: user
 		}
 ------------------------------------------------------------------------------------------------------------------------------------
-/gamelist
+/gameList
 	post: create new gameList and additional add first game
 		body: {token: string, listName: string, gameId?: number}
 		res: {
@@ -85,9 +86,18 @@ user = {
 ------------------------------------------------------------------------------------------------------------------------------------
 /gameListName
     put: change name of list
-    body: {token: string, listId: string, name: string}
-    		res: {
-    			success: boll
-    			message: string
-    			user?: user
-    		}
+        body: {token: string, listId: string, name: string}
+        res: {
+            success: boll
+            message: string
+            user?: user
+        }
+------------------------------------------------------------------------------------------------------------------------------------
+/gameRating
+    get: get game rating
+        body: {token: string, gameId: number}
+        res: {
+            success: boll
+            message: string
+            gameRating?: number
+        }

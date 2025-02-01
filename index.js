@@ -17,7 +17,12 @@ const users = [
                 name: 'my games',
                 gamesId: [432, 3234]
             }
-        ]
+        ],
+        ratedGame: new Map([
+            [12, '1'],
+            [121, '3'],
+            [32, '2']
+        ])
     },
 ]
 
@@ -50,7 +55,8 @@ app.post('/account', (req, res) => {
             name: req.body.name,
             password: req.body.password,
             token: token,
-            gameLists: []
+            gameLists: [],
+            ratedGame: new Map([])
         })
         res.json({
             success: true,
@@ -136,7 +142,7 @@ app.get('/user', (req, res) => {
     }
 })
 
-app.post('/gamelist', (req, res) => {
+app.post('/gameList', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
         users[userIndex].gameLists.push({
@@ -157,7 +163,7 @@ app.post('/gamelist', (req, res) => {
     }
 })
 
-app.delete('/gamelist', (req, res) => {
+app.delete('/gameList', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
@@ -182,7 +188,7 @@ app.delete('/gamelist', (req, res) => {
     }
 })
 
-app.put('/gamelist', (req, res) => {
+app.put('/gameList', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
@@ -234,6 +240,45 @@ app.put('/gameListName', (req, res) => {
                 message: 'Not found list with this id',
             })
         }
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
+app.get('/gameRating', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        if (users[userIndex].ratedGame.has(req.body.gameId)) {
+            res.json({
+                success: true,
+                message: 'Game is rated',
+                gameRating: users[userIndex].ratedGame.get(req.body.gameId)
+            })
+        } else {
+            res.json({
+                success: true,
+                message: 'Game has not rated',
+            })
+        }
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this token does not exist',
+        })
+    }
+})
+
+app.put('/gameRating', (req, res) => {
+    const userIndex = users.findIndex(user => req.body.token === user.token)
+    if (userIndex !== -1) {
+        users[userIndex].ratedGame.set(req.body.gameId, req.body.rating)
+        res.json({
+            success: true,
+            message: 'game was rated successfully'
+        })
     } else {
         res.json({
             success: false,
