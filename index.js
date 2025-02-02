@@ -1,5 +1,8 @@
 const express = require('express')
 const app = express()
+const cors = require('cors')
+
+app.use(cors())
 
 app.use(express.json())
 
@@ -18,7 +21,7 @@ const users = [
                 gamesId: [432, 3234]
             }
         ],
-        ratedGame: new Map([
+        ratedGames: new Map([
             [12, 1],
             [121, 3],
             [32, 2]
