@@ -59,7 +59,7 @@ app.post('/account', (req, res) => {
             password: req.body.password,
             token: token,
             gameLists: [],
-            ratedGame: new Map([])
+            ratedGames: new Map([])
         })
         res.json({
             success: true,
@@ -254,11 +254,11 @@ app.put('/gameListName', (req, res) => {
 app.get('/gameRating', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
-        if (users[userIndex].ratedGame.has(req.body.gameId)) {
+        if (users[userIndex].ratedGames.has(req.body.gameId)) {
             res.json({
                 success: true,
                 message: 'Game is rated',
-                gameRating: users[userIndex].ratedGame.get(req.body.gameId)
+                gameRating: users[userIndex].ratedGames.get(req.body.gameId)
             })
         } else {
             res.json({
@@ -277,7 +277,7 @@ app.get('/gameRating', (req, res) => {
 app.put('/gameRating', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
-        users[userIndex].ratedGame.set(req.body.gameId, req.body.rating)
+        users[userIndex].ratedGames.set(req.body.gameId, req.body.rating)
         res.json({
             success: true,
             message: 'game was rated successfully',
@@ -293,7 +293,7 @@ app.put('/gameRating', (req, res) => {
 app.delete('/gameRating', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
-        users[userIndex].ratedGame.delete(req.body.gameId)
+        users[userIndex].ratedGames.delete(req.body.gameId)
         res.json({
             success: true,
             message: 'rating was deleted successfully',
@@ -310,13 +310,13 @@ app.get('/gameRatingList', (req, res) => {
     const userIndex = users.findIndex(user => req.body.token === user.token)
     if (userIndex !== -1) {
         const ratedGames = []
-        for (let entry of  users[userIndex].ratedGame) {
+        for (let entry of  users[userIndex].ratedGames) {
             ratedGames.push(entry)
         }
         res.json({
             success: true,
             message: 'success',
-            ratedGameList: ratedGames
+            ratedGamesList: ratedGames
         })
     } else {
         res.json({

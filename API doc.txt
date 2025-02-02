@@ -121,5 +121,5 @@ user = {
         res: {
             success: boll
             message: string
-            ratedGameList: [number: number][]
+            ratedGamesList: [number: number][]
         }
