@@ -29,10 +29,10 @@ const users = [
     },
 ]
 
-app.get('/account/:login/:password', (req, res) => {
-    const user = users.find(user => user.login === req.params.login)
+app.get('/account', (req, res) => {
+    const user = users.find(user => user.login === req.query.login)
     if (user) {
-        if (user.password === req.params.password) {
+        if (user.password === req.query.password) {
             res.json({
                 success: true,
                 message: '',
