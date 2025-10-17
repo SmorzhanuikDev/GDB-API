@@ -45,7 +45,10 @@ app.get('/account', (req, res) => {
             })
         }
     } else {
-        res.status(404).json({error: 'no user with login' + req.body.login})
+        res.status(401).json({
+            error: 'no user with login' + req.body.login,
+            success: false
+        })
     }
 })
 
