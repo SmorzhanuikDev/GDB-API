@@ -77,6 +77,21 @@ app.post('/account', (req, res) => {
     }
 })
 
+app.get('/account/checkLogin', (req, res) => {
+    const user = users.find(user => user.login === req.body.login)
+    if (!user) {
+        res.json({
+            success: true,
+            message: 'Login can be used',
+        })
+    } else {
+        res.json({
+            success: false,
+            message: 'user with this login already exists',
+        })
+    }
+})
+
 app.put('/account', (req, res) => {
     const userIndex = users.findIndex(user => user.token === req.body.token)
     if (userIndex !== -1) {
