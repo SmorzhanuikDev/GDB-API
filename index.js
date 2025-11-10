@@ -46,7 +46,7 @@ app.get('/account', (req, res) => {
         }
     } else {
         res.json({
-            error: 'no user with login' + req.query.login,
+            message: 'no user with provided login',
             success: false
         })
     }
