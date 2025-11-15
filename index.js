@@ -72,7 +72,7 @@ app.post('/account', (req, res) => {
     } else {
         res.json({
             success: false,
-            message: 'User with this login already exists',
+            message: 'This login not available',
         })
     }
 })
