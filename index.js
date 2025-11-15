@@ -66,19 +66,19 @@ app.post('/account', (req, res) => {
         })
         res.json({
             success: true,
-            message: 'new user was created successfully',
+            message: 'New user was created successfully',
             token: token
         })
     } else {
         res.json({
             success: false,
-            message: 'user with this login already exists',
+            message: 'User with this login already exists',
         })
     }
 })
 
 app.get('/account/checkLogin', (req, res) => {
-    const user = users.find(user => user.login === req.body.login)
+    const user = users.find(user => user.login === req.query.login)
     if (!user) {
         res.json({
             success: true,
@@ -87,7 +87,7 @@ app.get('/account/checkLogin', (req, res) => {
     } else {
         res.json({
             success: false,
-            message: 'user with this login already exists',
+            message: 'User with this login already exists',
         })
     }
 })
