@@ -93,7 +93,7 @@ app.get('/account/checkLogin', (req, res) => {
 })
 
 app.put('/account', (req, res) => {
-    const userIndex = users.findIndex(user => user.token === req.body.token)
+    const userIndex = users.findIndex(user => user.token === req.query.token)
     if (userIndex !== -1) {
         users[userIndex].name = req.body.name
         res.json({
@@ -109,7 +109,7 @@ app.put('/account', (req, res) => {
 })
 
 app.put('/account/pass', (req, res) => {
-    const userIndex = users.findIndex(user => user.token === req.body.token)
+    const userIndex = users.findIndex(user => user.token === req.query.token)
     if (userIndex !== -1) {
         if (req.body.oldPassword === users[userIndex].password) {
             users[userIndex].password = req.body.newPassword
@@ -132,7 +132,7 @@ app.put('/account/pass', (req, res) => {
 })
 
 app.delete('/account', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         users.splice(userIndex, 1)
         res.json({
@@ -148,7 +148,7 @@ app.delete('/account', (req, res) => {
 })
 
 app.get('/user', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         res.json({
             success: true,
@@ -164,7 +164,7 @@ app.get('/user', (req, res) => {
 })
 
 app.post('/gameList', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         users[userIndex].gameLists.push({
             name: req.body.listName,
@@ -185,7 +185,7 @@ app.post('/gameList', (req, res) => {
 })
 
 app.delete('/gameList', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
         if (listIndex !== -1) {
@@ -210,7 +210,7 @@ app.delete('/gameList', (req, res) => {
 })
 
 app.put('/gameList', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
         if (listIndex !== -1) {
@@ -245,7 +245,7 @@ app.put('/gameList', (req, res) => {
 })
 
 app.put('/gameListName', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         const listIndex = users[userIndex].gameLists.findIndex(list => req.body.listId === list.id)
         if (listIndex !== -1) {
@@ -270,7 +270,7 @@ app.put('/gameListName', (req, res) => {
 })
 
 app.get('/gameRating', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         if (users[userIndex].ratedGames.has(req.body.gameId)) {
             res.json({
@@ -293,7 +293,7 @@ app.get('/gameRating', (req, res) => {
 })
 
 app.put('/gameRating', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         users[userIndex].ratedGames.set(req.body.gameId, req.body.rating)
         res.json({
@@ -309,7 +309,7 @@ app.put('/gameRating', (req, res) => {
 })
 
 app.delete('/gameRating', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         users[userIndex].ratedGames.delete(req.body.gameId)
         res.json({
@@ -325,7 +325,7 @@ app.delete('/gameRating', (req, res) => {
 })
 
 app.get('/gameRatingList', (req, res) => {
-    const userIndex = users.findIndex(user => req.body.token === user.token)
+    const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
         const ratedGames = []
         for (let entry of  users[userIndex].ratedGames) {
