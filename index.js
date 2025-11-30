@@ -135,11 +135,18 @@ app.put('/account/pass', (req, res) => {
 app.delete('/account', (req, res) => {
     const userIndex = users.findIndex(user => req.query.token === user.token)
     if (userIndex !== -1) {
-        users.splice(userIndex, 1)
-        res.json({
-            success: true,
-            message: 'user was deleted successfully',
-        })
+        if (req.query.password === users[userIndex].password) {
+            users.splice(userIndex, 1)
+            res.json({
+                success: true,
+                message: 'user was deleted successfully',
+            })
+        } else {
+            res.json({
+                success: false,
+                message: 'password is incorrect',
+            })
+        }
     } else {
         res.json({
             success: false,
