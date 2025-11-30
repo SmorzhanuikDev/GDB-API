@@ -98,7 +98,8 @@ app.put('/account', (req, res) => {
         users[userIndex].name = req.body.name
         res.json({
             success: true,
-            message: 'name was updated successfully'
+            message: 'name was updated successfully',
+            newName: req.body.name
         })
     } else {
         res.json({
